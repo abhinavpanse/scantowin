@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://abhinav:uiop0987@cluster0-h8f4h.mongodb.net/scantowin3?retryWrites=true&w=majority",
+  "jwtSecret": "secret",
+  "githubClientId": "",
+  "githubSecret": ""
+}
