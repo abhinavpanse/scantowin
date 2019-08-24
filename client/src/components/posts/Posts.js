@@ -22,7 +22,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 
       {/* blablabal */}
 
-      {/* <PostForm /> */}
+      <PostForm />
 
       {/* blablabal */}
       <div className="posts">

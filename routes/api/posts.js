@@ -114,15 +114,30 @@ router.delete("/:id", auth, async (req, res) => {
 router.put("/like/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const curruser = await User.findById(req.user.id);
+    const curprofile = await Profile.findOne({ user: req.user.id });
 
     // Check if the post has already been liked
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length > 0
     ) {
-      return res.status(400).json({ msg: "This coupon already used" });
+      return res.status(400).json({ msg: "You have already used this" });
     }
 
-    post.likes.unshift({ user: req.user.id });
+    console.log(post);
+    console.log(curruser);
+    if (!curprofile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+    console.log(curprofile);
+
+    if (post.burns < curprofile.coins) {
+      post.likes.unshift({ user: req.user.id });
+    }
+
+    curprofile.coins -= post.burns;
+
+    await curprofile.save();
 
     await post.save();
 

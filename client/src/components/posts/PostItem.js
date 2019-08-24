@@ -10,7 +10,7 @@ const PostItem = ({
   removeLike,
   deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, date },
+  post: { _id, text, name, avatar, user, likes, date, burns },
   showActions
 }) => (
   <div className="post bg-white p-1 my-1">
@@ -25,7 +25,9 @@ const PostItem = ({
       <p className="post-date">
         Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
       </p>
-
+      <p className="post-date">
+        Coins Required <span>{burns}</span>
+      </p>
       {showActions && (
         <Fragment>
           <button

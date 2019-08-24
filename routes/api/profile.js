@@ -35,14 +35,8 @@ router.get("/me", auth, async (req, res) => {
 // @access   Private
 router.post(
   "/",
-  [
-    auth,
-    [
-      check("location", "Location is required")
-        .not()
-        .isEmpty()
-    ]
-  ],
+
+  auth,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -50,7 +44,7 @@ router.post(
     }
 
     const { location, coins, travel_distance } = req.body;
-
+    console.log("" + coins + " " + travel_distance);
     // Build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
