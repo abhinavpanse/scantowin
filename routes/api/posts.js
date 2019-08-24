@@ -118,11 +118,11 @@ router.put("/like/:id", auth, async (req, res) => {
     const curprofile = await Profile.findOne({ user: req.user.id });
 
     // Check if the post has already been liked
-    if (
-      post.likes.filter(like => like.user.toString() === req.user.id).length > 0
-    ) {
-      return res.status(400).json({ msg: "You have already used this" });
-    }
+    // if (
+    //   post.likes.filter(like => like.user.toString() === req.user.id).length > 0
+    // ) {
+    //   return res.status(400).json({ msg: "You have already used this" });
+    // }
 
     console.log(post);
     console.log(curruser);
@@ -130,7 +130,9 @@ router.put("/like/:id", auth, async (req, res) => {
       return res.status(400).json({ msg: "There is no profile for this user" });
     }
     console.log(curprofile);
-
+    if (curprofile.coins - post.burns < 0) {
+      return res.status(400).json({ msg: "You dont have enough coins " })
+    }
     if (post.burns < curprofile.coins) {
       post.likes.unshift({ user: req.user.id });
     }

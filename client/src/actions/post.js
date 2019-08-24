@@ -37,6 +37,8 @@ export const addLike = id => async dispatch => {
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
     });
+    dispatch(setAlert("COUPOUN APPLIED YOU CODE IS COPIED TO CLIPBOARD", "success"));
+
   } catch (err) {
     dispatch({
       type: POST_ERROR,

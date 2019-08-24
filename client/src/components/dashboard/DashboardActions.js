@@ -22,6 +22,8 @@ const DashboardActions2 = ({
       thistravel_distance: ""
     }
   });
+  const [qrShow, setqrShow] = useState(0);
+
   useEffect(() => {
     getCurrentProfile();
     console.log(profile);
@@ -38,47 +40,58 @@ const DashboardActions2 = ({
       }
     });
   }, [loading, getCurrentProfile]);
-
+  var qr = qrShow;
   const { coins, travel_distance, qrData } = formData;
-
-  const onQRscan = data => {
-    if (data) {
-      console.log(formData);
-
-      data = JSON.parse(data);
-      const updatedCoin = parseInt(coins) + parseInt(qrData.thiscoins);
-      const updatedTravel_distance =
-        parseInt(travel_distance) + parseInt(qrData.thistravel_distance);
-
-      // console.log("data" + JSON.stringify(data));
-      // console.log("formData" + JSON.stringify(formData));
-
-      // if (formData.thiscoins != 0) {
-      setFormData({
-        ...formData,
-        qrData: data,
-        coins: updatedCoin,
-        travel_distance: updatedTravel_distance
-      });
-
-      // createProfile(
-      //   { coins: updatedCoin, travel_distance: updatedTravel_distance },
-      //   history,
-      //   true
-      // );
-      // }
-    }
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
+  const onChange = () => {
+    // e.preventDefault();
 
     createProfile(
       { coins: formData.coins, travel_distance: formData.travel_distance },
       history,
       true
     );
+    ++qr;
+    setqrShow(qr);
+
   };
+  const onQRscan = data => {
+    if (data) {
+      data = JSON.parse(data);
+      const updatedCoin = parseInt(coins) + parseInt(data.thiscoins);
+      const updatedTravel_distance =
+        parseInt(travel_distance) + parseInt(data.thistravel_distance);
+      if (qrData.thiscoins == 0 || qrData.thiscoins == "") {
+
+        console.log(formData);
+
+
+
+
+
+        // console.log("data" + JSON.stringify(data));
+        // console.log("formData" + JSON.stringify(formData));
+
+        // if (formData.thiscoins != 0) {
+        setFormData({
+          ...formData,
+          qrData: data,
+          coins: updatedCoin,
+          travel_distance: updatedTravel_distance
+        });
+        // createProfile(
+        //   { coins: updatedCoin, travel_distance: updatedTravel_distance },
+        //   history,
+        //   true
+        // );
+        // }
+
+      }
+      onChange();
+    }
+
+  };
+
+
 
   const handleError = err => {
     console.error(err);
@@ -90,12 +103,15 @@ const DashboardActions2 = ({
       <p className="lead">
         <i className="fas fa-bus" /> Have a safe journey ahead
       </p>
-      <QrReader
-        onScan={onQRscan}
-        onError={handleError}
-        style={{ width: "80%" }}
-      />
-      <form className="form" onSubmit={e => onSubmit(e)}>
+      {(qrShow <= 1) && <div className="panse">
+        <QrReader
+          onScan={onQRscan}
+          onError={handleError}
+          style={{ width: "80%" }}
+        />
+      </div>}
+
+      <form className="form" >
         <div className="form-group">
           <input
             type="number"
@@ -152,11 +168,8 @@ const DashboardActions2 = ({
             value={qrData.price}
           />
         </div>
-        <input type="submit" className="btn btn-primary my-1" />
 
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-        </Link>
+
       </form>
     </Fragment>
   );
