@@ -3,6 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
 const auth = require("../../middleware/auth");
 
+var mongoose = require("mongoose");
+
 const Post = require("../../models/Post");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
@@ -80,6 +82,23 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
+// @route    GET api/posts/:userid
+// @desc     Get post by userID
+// @access   Private
+router.get("/:userid", auth, async (req, res) => {
+  try {
+    const userId = req.params.userid;
+    const curuser = mongoose.Types.ObjectId(userId);
+    var dataToSend = [];
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: " not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    DELETE api/posts/:id
 // @desc     Delete a post
 // @access   Private
@@ -131,7 +150,7 @@ router.put("/like/:id", auth, async (req, res) => {
     }
     console.log(curprofile);
     if (curprofile.coins - post.burns < 0) {
-      return res.status(400).json({ msg: "You dont have enough coins " })
+      return res.status(400).json({ msg: "You dont have enough coins " });
     }
     if (post.burns < curprofile.coins) {
       post.likes.unshift({ user: req.user.id });

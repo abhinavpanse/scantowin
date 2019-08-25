@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import DashboardActions from "./DashboardActions";
 import { getCurrentProfile, deleteAccount } from "../../actions/profile";
-import "./harsh.css";
+
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
@@ -20,9 +20,25 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
+      <h1 className="large text-primary">Dashboard</h1>
+      <p className="lead">
+        <i className="fas fa-user" /> Welcome {user && user.name}
+      </p>
+      <p>You currently have {profile && profile.coins} coins.</p>
+      <p>
+        You have travelled {profile && profile.travel_distance} kms in public
+        transport.
+      </p>
+
+      <p>
+        You have saved the planet by reducing your carbon footprint by{" "}
+        {(profile && profile.travel_distance) * 12}
+      </p>
+
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
+
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
               <i className="fas fa-user-minus" /> Delete My Account
@@ -37,48 +53,6 @@ const Dashboard = ({
           </Link>
         </Fragment>
       )}
-      <h1 className="large text-primary" style={{ "margin-top": "5vh" }}>
-        Dashboard
-      </h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Welcome {user && user.name}
-      </p>
-      <div className="row">
-        <div className="column">
-          <div className="card">
-            <div className="form-group">
-              <p>You currently have {profile && profile.coins} coins.</p>
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div class="card">
-            <div className="form-group">
-              <p>
-                You have travelled {profile && profile.travel_distance} kms in
-                public transport.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="card">
-            <div className="form-group">
-              <p>
-                You have saved the planet by reducing your carbon footprint by{" "}
-                {(profile && profile.travel_distance) * 12}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="card">
-            <div className="form-group">
-              <p>You have saved 0.54 lit of Fuel by using public transport </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </Fragment>
   );
 };

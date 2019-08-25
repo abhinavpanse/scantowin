@@ -17,12 +17,12 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     <Fragment>
       <h1 className="large text-primary">Coupons</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Welcome to the ScanToWin Coupons
+        <i className="fas fa-user" /> Welcome to the Virtuoso Coupons
       </p>
 
       {/* blablabal */}
 
-      <PostForm />
+      {/* <PostForm /> */}
 
       {/* blablabal */}
       <div className="posts">

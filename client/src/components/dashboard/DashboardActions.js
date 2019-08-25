@@ -52,7 +52,6 @@ const DashboardActions2 = ({
     );
     ++qr;
     setqrShow(qr);
-
   };
   const onQRscan = data => {
     if (data) {
@@ -61,12 +60,7 @@ const DashboardActions2 = ({
       const updatedTravel_distance =
         parseInt(travel_distance) + parseInt(data.thistravel_distance);
       if (qrData.thiscoins == 0 || qrData.thiscoins == "") {
-
         console.log(formData);
-
-
-
-
 
         // console.log("data" + JSON.stringify(data));
         // console.log("formData" + JSON.stringify(formData));
@@ -84,14 +78,10 @@ const DashboardActions2 = ({
         //   true
         // );
         // }
-
       }
       onChange();
     }
-
   };
-
-
 
   const handleError = err => {
     console.error(err);
@@ -103,73 +93,87 @@ const DashboardActions2 = ({
       <p className="lead">
         <i className="fas fa-bus" /> Have a safe journey ahead
       </p>
-      {(qrShow <= 1) && <div className="panse">
-        <QrReader
-          onScan={onQRscan}
-          onError={handleError}
-          style={{ width: "80%" }}
-        />
-      </div>}
+      {qrShow <= 1 && (
+        <div className="panse">
+          <QrReader
+            onScan={onQRscan}
+            onError={handleError}
+            style={{ width: "100%" }}
+          />
+        </div>
+      )}
 
-      <form className="form" >
+      <form className="form">
         <div className="form-group">
+          <span>Current Coins : </span>
           <input
-            type="number"
+            type="text"
             placeholder="Current Coins"
             name="coins"
             value={coins}
+            style={{ border: "none" }}
           />
         </div>
         <div className="form-group">
+          <span>Reward Coins : </span>
           <input
-            type="number"
+            type="text"
             placeholder="This Ticket Coins"
             name="coins"
             value={qrData.thiscoins}
+            style={{ border: "none" }}
           />
         </div>
         <div className="form-group">
+          <span>From : </span>
           <input
             type="text"
             placeholder="Source"
             name="src"
             value={qrData.src}
+            style={{ border: "none" }}
           />
         </div>
         <div className="form-group">
+          <span>To : </span>
           <input
             type="text"
             placeholder="Destination"
             name="dest"
             value={qrData.dest}
+            style={{ border: "none" }}
           />
         </div>
         <div className="form-group">
+          <span>Total Travel Distance : </span>
           <input
             type="text"
             placeholder="Total Travel Distance"
             name="travel_distance"
             value={travel_distance}
+            style={{ border: "none" }}
           />
         </div>
         <div className="form-group">
+          <span>Current Trip Travel Distance : </span>
           <input
-            type="number"
+            type="text"
             placeholder="This Ticket Travel Distance"
             name="thistravel_distance"
             value={qrData.thistravel_distance}
+            style={{ border: "none" }}
           />
         </div>
         <div className="form-group">
+          <span>Current Fare : Rs. </span>
           <input
-            type="number"
+            type="text"
             placeholder="This Ticket Price"
             name="price"
             value={qrData.price}
+            style={{ border: "none" }}
           />
         </div>
-
-
       </form>
     </Fragment>
   );

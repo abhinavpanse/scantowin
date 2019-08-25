@@ -43,7 +43,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <nav className="navbar bg-dark">
       <h1>
         <Link to="/">
-          <i className="fas fa-qrcode" /> Virtuso
+          <i className="fas fa-qrcode" /> Virtuoso
         </Link>
       </h1>
       {!loading && (
@@ -66,3 +66,16 @@ export default connect(
   mapStateToProps,
   { logout }
 )(Navbar);
+
+// <script>
+// var prevScrollpos = window.pageYOffset;
+// window.onscroll = function() {
+// var currentScrollPos = window.pageYOffset;
+//   if (prevScrollpos > currentScrollPos) {
+//     document.getElementById("navbar").style.top = "0";
+//   } else {
+//     document.getElementById("navbar").style.top = "-50px";
+//   }
+//   prevScrollpos = currentScrollPos;
+// }
+// </script>

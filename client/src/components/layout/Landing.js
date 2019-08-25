@@ -12,11 +12,8 @@ const Landing = ({ isAuthenticated }) => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">ScanToWin</h1>
-          <p className="lead">
-            Get free wifi in public transport. Get free popular subscriptions in
-            public transport.
-          </p>
+          <h1 className="x-large">Virtuoso</h1>
+          <p className="lead">Effectively Free Public Transport EcoSystem</p>
           <div className="buttons">
             <Link to="/register" className="btn btn-primary">
               Sign Up
